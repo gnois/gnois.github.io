@@ -1,45 +1,42 @@
-body,
-html {
+html, body {
   height: 100%;
   margin: 0;
-}
-aside {
-  background: #90EE90;
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 120px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 ul {
   list-style: none;
 }
-section {
-  /* background: #ADD8E6; */
-  height: 100%;
-  margin-top: 60px;
-}
 header {
-  /*background: #FF0; */
+  background: #ccc;
   height: 60px;
-  left: 120px;
+  left: 0;
   right: 0;
   position: fixed;
-  text-align: center;
   top: 0;
   z-index: 99;
 }
-.container {
-  left: 0;
-  margin-left: 120px;
-  min-height: 100%;
+.topnav {
+  right: 0;
+  position: fixed;
+  top: 10px;
+}
+.topnav li {
+  display: inline;
+  margin: 1em;
+}
+main {
   position: relative;
-  text-align: center;
+  top: 0;
+  left: 0;
+  margin-top: 60px;
+  margin-left: 160px;
+  height: 100%;
+  min-height: 100%;
 }
-figure {
-  margin: 0;
-}
-img {
-  height: 60px;
-  width: 100%;
+.leftnav {
+  position: fixed;
+  left: 0;
+  height: 100%;
+  width: 160px;
+  background: #ddd;
 }

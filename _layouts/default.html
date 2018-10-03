@@ -2,32 +2,26 @@
 <html>
   <head>
     <title>{{ page.title }}</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
-  
   </head>
 
-
   <body>
-<header><ul>
-<li><a href="/">Home</a></li>
-<li><a href="/luaty">Luaty language</a></li>
-<li><a href="/blog">Blog</a></li>
-</ul>
-</header>
+  <header>
+    Gnois open source projects
+    <nav class="topnav">
+      <ul>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/luaty">Luaty</a></li>
+        <li><a href="/losty">Losty</a></li>
+      </ul>
+    <nav>
+  </header>
 
-<div class="container">
-  <section>
-  {{ content }}
-  </section>
-</div>
-  
-  <footer>
-   <ul>
-   <li><a href="https://github.com/gnois">GitHub</a></li>
-   </ul>
-  </footer>
-  </body>
+  <main>
+    {{ content }}
+  </main>
 
+</body>
 </html>
 
