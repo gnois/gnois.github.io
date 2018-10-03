@@ -1,57 +1,45 @@
-body { margin: 60px auto; width: 70%; font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
-
-a { text-decoration: none; color: #999; }
-a:hover { text-decoration: underline; }
-
-p, ul { font-size: 1.5em; line-height: 1.4em; color: #333; }
-
-h1, h2, h3, h4 { font-family: 'Bookman', 'Garamond'; }
-h1 { font-size: 3em;  }
-h2 { font-size: 2.7em; }
-h3 { font-size: 2.3em; }
-h4 { font-size: 1.9em; }
-
-nav ul, footer ul { font-size: 1em; font-family: 'Helvetica', 'Arial', 'Sans-Serif'; padding: 0px; list-style: none; font-weight: bold; }
-nav ul li, footer ul li { display: inline; margin-right: 20px; }
-
-footer { border-top: 1px solid #d5d5d5; font-size: .8em; }
-
-/* Blog */
-ul.posts { margin: 20px auto 40px; font-size: 1.5em; }
-ul.posts li { list-style: none; }
-
-/* Luaty */
-.luaty { margin: 0px 0px 60px; }
-.luaty h1 { font-size: 3em; }
-.luaty h2 { font-size: 2em; }
-.luaty .download { float: right; font-size: .8em; text-transform: uppercase; font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
-.luaty .sidenav {
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
-.luaty .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #818181;
-    display: block;
+aside {
+  background: #90EE90;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 120px;
 }
-.luaty .sidenav a:hover {
-    color: #f1f1f1;
+ul {
+  list-style: none;
 }
-.luaty .main {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
+section {
+  /* background: #ADD8E6; */
+  height: 100%;
+  margin-top: 60px;
 }
-@media screen and (max-height: 450px) {
-    .luaty .sidenav {padding-top: 15px;}
-    .luaty .sidenav a {font-size: 18px;}
+header {
+  /*background: #FF0; */
+  height: 60px;
+  left: 120px;
+  right: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  z-index: 99;
+}
+.container {
+  left: 0;
+  margin-left: 120px;
+  min-height: 100%;
+  position: relative;
+  text-align: center;
+}
+figure {
+  margin: 0;
+}
+img {
+  height: 60px;
+  width: 100%;
 }
