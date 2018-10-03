@@ -1,11 +1,11 @@
-body { margin: 60px auto; width: 70%; }
+body { margin: 60px auto; width: 70%; font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
 
 a { text-decoration: none; color: #999; }
 a:hover { text-decoration: underline; }
 
 p, ul { font-size: 1.5em; line-height: 1.4em; color: #333; }
 
-h1, h2, h3, h4 { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
+h1, h2, h3, h4 { font-family: 'Bookman', 'Garamond'; }
 h1 { font-size: 3em;  }
 h2 { font-size: 2.7em; }
 h3 { font-size: 2.3em; }
@@ -20,10 +20,38 @@ footer { border-top: 1px solid #d5d5d5; font-size: .8em; }
 ul.posts { margin: 20px auto 40px; font-size: 1.5em; }
 ul.posts li { list-style: none; }
 
-/* CV */
-.cv { margin: 0px 0px 60px; }
-.cv h1 { font-size: 3em; }
-.cv h2 { font-size: 2em; }
-.cv address, .cv .download { font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
-.cv address, .cv p { font-size: 1.2em; }
-.cv .download { float: right; font-size: .8em; text-transform: uppercase; }
+/* Luaty */
+.luaty { margin: 0px 0px 60px; }
+.luaty h1 { font-size: 3em; }
+.luaty h2 { font-size: 2em; }
+.luaty .download { float: right; font-size: .8em; text-transform: uppercase; font-family: 'Helvetica', 'Arial', 'Sans-Serif'; }
+.luaty .sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.luaty .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+}
+.luaty .sidenav a:hover {
+    color: #f1f1f1;
+}
+.luaty .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+@media screen and (max-height: 450px) {
+    .luaty .sidenav {padding-top: 15px;}
+    .luaty .sidenav a {font-size: 18px;}
+}
