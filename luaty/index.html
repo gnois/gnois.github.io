@@ -7,9 +7,8 @@ title: Luaty programming language
 <nav class="leftnav">
   <ul>
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#concept">Concepts</a></li>
+    <li><a href="#indentation">Indent rules</a></li>
   </ul>
 </nav>
 
@@ -18,7 +17,8 @@ title: Luaty programming language
 <p>Luaty is an indent sensitive language with partial type inference that compiles to Lua.</p>
 
 
-<a name="overview"><h2>Overview</h2></a>
+<a name="overview"><br/><br/><br/><br/></a>
+<h3>Overview</h3>
 <p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. 'Typing' has dual meaning here, and summarizes the benefit of using Luaty.</p>
 
 <h4>Type inference</h4>
@@ -31,15 +31,28 @@ title: Luaty programming language
   <li>no more do after for and while</li>
   <li>no more then after if</li>
 </ul>
+<p>There are also some syntax changes:</p>
+<ul>
+<li>repeat becomes do</li>
+<li>elseif becomes else if</li>
+<li>local becomes var</li>
+<li>[[ and ]] become backquote(s) ` that can be repeated multiple times</li>
+<li>table keys can be string or keyword</li>
 
 <p>To sum it up: we type check, you type less</p>
 
-<a name="installation"><h2>Installation</h2></a>   
-<p></p>
+
+
+<a name="Usage"><br/><br/><br/><br/></a>
+<h3>Usage</h3>
+<p>Luaty only requires LuaJIT to run.</p>
+
+<p>With LuaJIT in your path, clone this repo, and cd into it.</p>
 <p></p>
 
 
-<a name="usage"><h2>Usage</h2></a>
+<a name="indentation"><br/><br/><br/><br/></a>
+<h3>Indent rules</h3>
 <p></p>
 
 
