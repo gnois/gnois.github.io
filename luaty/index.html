@@ -68,7 +68,7 @@ end, {1, 2})[2] == 4)
 <p>Luaty type checker statically infers variable types and warns when they are used inconsistently in code. Although it is impossible to correctly infer all variable types, some warnings are quite helpful in uncovering common coding mistakes or typos.</p>
 
 <h4>Type less</h4>
-<p>Due to offside syntax, Luaty uses less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
+<p>Due to <a href="https://en.wikipedia.org/wiki/Off-side_rule">offside syntax</a>, Luaty uses less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
 
 <p>In short, it boils down to: we type check, you type less</p>
 
@@ -86,8 +86,8 @@ end, {1, 2})[2] == 4)
   <li>duplicate keys in table constructor</li>
 </ul>
 
-<p>Optionally, a type inferencer can be enabled to check consistent usage of variables. It will try to infer the type of all variables by their usage.</p>
-<p>Since Lua is a dynamic language, the inferencer can be wrong in non trivial cases. Therefore, it is advisable to enable type checking during initial development, and if it causes too many warnings, to turn it off subsequently.</p>
+<p>A type inferencer can be enabled to check consistent usage of variables. </p>
+<p>Since Lua is a dynamic language, the inferencer can be wrong in non trivial cases, hence it can be turned off if it produces too many warnings.</p>
 
 <p>Note that Lua code will be generated regardless of warning(s) by the static analyzer.</p>
 
@@ -95,10 +95,9 @@ end, {1, 2})[2] == 4)
 <a name="difference" class="anchor"></a>
 <h3>Differences from Lua</h3>
 
-<p>Luaty strives to limit syntactical changes from Lua, which is already very well designed.</p>
-
+<p>Luaty strives to limit syntactical changes from Lua, which is extremely well designed.<p>
 <p>The rule of thumb is that, if something can be achieved by introducing a function, it should not become a feature of Luaty. For example, generating enums or classes.</p>
-<p>This means Luaty has very few syntactical features, and Lua users can be productive with Luaty in a short time.</p>
+
 <p>Below we only list down the syntactical differences from Lua.</p>
 
 <h4>Removed keywords:</h4>
@@ -128,7 +127,8 @@ end, {1, 2})[2] == 4)
   <li>specifying <code>@</code> as the first call argument compiles to colon call syntax <code>:</code> in Lua, if possible</li>
 </ul>
 
-<p>The differences end here, so that a Lua file can easily be <a href="/luaty/convert">converted</a> to a Luaty file.</p>
+<p>That is all. The differences end here.</p>
+<p>A Lua file can easily be <a href="/luaty/convert">converted</a> to a Luaty file.</p>
 <p>A Lua editor with syntax highlighting even understands Luaty file as is, except for <code>var</code> and long string comment using <code>--`</code></p>
 
 
