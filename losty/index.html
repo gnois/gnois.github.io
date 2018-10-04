@@ -4,7 +4,7 @@ title: Losty web framework
 ---
 
 
-<nav class="leftnav">
+<nav class="leftnav menu">
   <ul>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#usage">Usage</a></li>
@@ -46,8 +46,9 @@ title: Losty web framework
   <li><a href="https://github.com/leafo/pgmoon">pgmoon</a> if using PostgreSQL (for MySQL, OpenResty comes prebuilt with lua-resty-mysql)</li>
 </ul>
 
-<p>A Losty web application looks like:</p>
-<code>
+<p>A Losty web application written with Luaty looks like:</p>
+
+<code class="code">
 var web = require('web.web')
 var view = require('web.view')
 
@@ -55,43 +56,43 @@ var server = web()
 var w = server.route()
 
 var template = ->
-	return html({
-		head({
-			meta('[charset=UTF-8]')
-			, title(args.title)
-			, style({'.center { text-align: center; }'})
-		})
-		, body({
-			div('.center', {
-				h1(args.title)
-				, div(args.message)
-			})
-			, footer({
-				hr()
-				, div('.center', '&copy' .. args.copyright)
-			})
-		})
-	})
+  return html({
+    head({
+      meta('[charset=UTF-8]')
+      , title(args.title)
+      , style({'.center { text-align: center; }'})
+    })
+    , body({
+      div('.center', {
+        h1(args.title)
+        , div(args.message)
+      })
+      , footer({
+        hr()
+        , div('.center', '&copy' .. args.copyright)
+      })
+    })
+  })
 
 var page = \args ->
-	args.copyright = 'My website'
-	return view(template, args)
+  args.copyright = 'My website'
+  return view(template, args)
 
 var not_found = page({
-	title = '404 Not Found'
-	, message = 'Nothing here'
+  title = '404 Not Found'
+  , message = 'Nothing here'
 })
 
 w.get('/', \req, res->
-	res.ok(page({
-		title = 'Hi'
-		, message = 'Losty is live!'
-	}))
+  res.ok(page({
+    title = 'Hi'
+    , message = 'Losty is live!'
+  }))
 )
 
 -- custom error pages
 var replies = {
-	[404] = not_found()
+  [404] = not_found()
 }
 server.run(replies)
 

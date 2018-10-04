@@ -5,12 +5,6 @@ html, body {
 }
 h2 {
   margin: 0.5em;
-  font-family: Bookman, Garamond;
-}
-ul {
-  margin: 0;
-  padding: 1em;
-  list-style: none;
 }
 header {
   background: #ccc;
@@ -20,6 +14,11 @@ header {
   position: fixed;
   top: 0;
   z-index: 99;
+}
+.menu {
+  margin: 0;
+  padding: 1em;
+  list-style: none;
 }
 .topnav {
   position: fixed;
@@ -62,7 +61,7 @@ a.anchor {
 a {
   text-decoration: none;
 }
-code {
+.code {
   display: block;
   white-space: pre-wrap;
 }
