@@ -17,15 +17,22 @@ title: Luaty programming language
 <p>Luaty is an indent sensitive language with partial type inference that compiles to Lua.</p>
 
 
-<a name="overview"><br/><br/><br/><br/></a>
+<a name="overview" class="anchor" />
 <h3>Overview</h3>
-<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. 'Typing' has dual meaning here, and summarizes the benefit of using Luaty.</p>
+<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. 'Typing' has two meanings here, both are the features of Luaty:</p>
 
 <h4>Type inference</h4>
 <p>Luaty type checker statically infers variable types in the code and warns about their inconsistent usage. Although it is not possible to correctly and fully infer all variable types, some warnings are quite helpful in discovering issues in the code.</p>
 
 <h4>Type less</h4>
-<p>Due to offside syntax, Luaty could use less syntax boilerplate than Lua:</p>
+<p>Due to offside syntax, Luaty could use less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
+
+
+That said, Luaty strives to limit its features. Lua language is very well designed, so Luaty's rule of thumb is that, if something can be abstracted into a function, we will not introduce syntactic change.
+That means Lua users can be productive with Luaty in an afternoon, and Lua code can be hand converted into Luaty code in easily using Find/Replace editor.
+
+<p>To sum it up: we type check, you type less</p>
+<!--
 <ul>
   <li>no more end</li>
   <li>no more do after for and while</li>
@@ -38,22 +45,36 @@ title: Luaty programming language
 <li>local becomes var</li>
 <li>[[ and ]] become backquote(s) ` that can be repeated multiple times</li>
 <li>table keys can be string or keyword</li>
-
-<p>To sum it up: we type check, you type less</p>
-
+-->
 
 
-<a name="Usage"><br/><br/><br/><br/></a>
+
+<a name="Usage" class="anchor" />
 <h3>Usage</h3>
 <p>Luaty only requires LuaJIT to run.</p>
 
-<p>With LuaJIT in your path, clone this repo, and cd into it.</p>
+<p>With LuaJIT in your path, clone the Luaty repo, and cd into it.</p>
 <p></p>
 
 
-<a name="indentation"><br/><br/><br/><br/></a>
+<a name="indentation" class="anchor" />
 <h3>Indent rules</h3>
-<p></p>
 
+<ol>
+<li>Either tabs or spaces can be used as indent, but not both in a single file.</li>
+
+<li>Comments have no indent rule.</li>
+
+<li>Blocks such as if, for, while, do and lambda expression -> can have child statement(s).</li>
+  <ul>
+    <li>A single child statement may choose to stay at the same line as its parent</li>
+    <li>Multiple child statements must start at an indented newline</li>
+  </ul>
+
+<li>A table constructor or function call can be indented, but the line having its closing brace/parenthesis must realign back to its starting indent level.</li>
+
+<li>A semicolon ; is used to terminate single-lined function if it causes ambiguity when used in a list of expressions.</li>
+
+</ol>
 
 </section>
