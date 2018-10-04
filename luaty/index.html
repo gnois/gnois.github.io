@@ -7,10 +7,11 @@ title: Luaty programming language
 <nav class="leftnav">
   <ul class="menu">
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#analyzer">Analyzer</a></li>
-    <li><a href="#difference">Differences</a></li>
+    <li><a href="#analyzer">Static Analyzer</a></li>
+    <li><a href="#difference">Differences from Lua</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#indent">Indent rules</a></li>
+    <li><a href="#convert">Convert to Luaty</a></li>
   </ul>
 </nav>
 
@@ -58,9 +59,10 @@ end, {1, 2})[2] == 4)
 </td></tr>
 </table>
 
+
 <a name="overview" class="anchor"></a>
 <h3>Overview</h3>
-<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. <em>Typing</em> carries two meanings here, which boils down to: we type check, you type less.</p>
+<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. <em>Typing</em> carries two meanings here, which is:</p>
 
 <h4>Type inference</h4>
 <p>Luaty type checker statically infers variable types and warns when they are used inconsistently in code. Although it is impossible to correctly infer all variable types, some warnings are quite helpful in uncovering common coding mistakes or typos.</p>
@@ -68,6 +70,7 @@ end, {1, 2})[2] == 4)
 <h4>Type less</h4>
 <p>Due to offside syntax, Luaty uses less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
 
+<p>In short, it boils down to: we type check, you type less</p>
 
 
 <a name="analyzer" class="anchor"></a>
@@ -96,8 +99,7 @@ end, {1, 2})[2] == 4)
 
 <p>The rule of thumb is that, if something can be achieved by introducing a function, it should not become a feature of Luaty. For example, generating enums or classes.</p>
 <p>This means Luaty has very few syntactical features, and Lua users can be productive with Luaty in a short time.</p>
-
-<p>Instead of introducing Luaty from Variables to Expressions, we would only point out the syntactical differences from Lua.</p>
+<p>Below we only list down the syntactical differences from Lua.</p>
 
 <h4>Removed keywords:</h4>
 <ul>
@@ -126,6 +128,8 @@ end, {1, 2})[2] == 4)
   <li>specifying <code>@</code> as the first call argument compiles to colon call syntax <code>:</code> in Lua, if possible</li>
 </ul>
 
+<p>The differences end here, so that a Lua file can easily be <a href="/luaty/convert">converted</a> to a Luaty file.</p>
+<p>A Lua editor with syntax highlighting even understands Luaty file as is, except for <code>var</code> and long string comment using <code>--`</code></p>
 
 
 <a name="usage" class="anchor"></a>
@@ -163,7 +167,12 @@ The Lua output files will be <em>overwritten</em> if they exist. To prevent over
 
 <code>luajit lt.lua -f lt.lt</code>
 
-<p></p>
+
+<p>To create Luaty command shortcut on Windows, use:</p>
+<code class="code">
+doskey luaty=luajit -e "package.path=package.path .. 'path-to-luaty\\?.lua'"  path-to-luaty\lt.lua $*
+</code>
+
 
 
 <a name="indent" class="anchor"></a>
@@ -186,4 +195,88 @@ The Lua output files will be <em>overwritten</em> if they exist. To prevent over
 
 </ol>
 
+
+
+<a name="convert" class="anchor"></a>
+<h3>Convert from Lua to Luaty</h3>
+
+<p>A Lua source file can be hand converted to Luaty source using a text editor with Find/Replace with the following steps:</p>
+
+<ol>
+  <strong>Using normal find dialog:</strong>
+  
+  <li><p<code>local</code> becomes <code>var</code></p>
+    <p>Find: <code>local</code></p>
+    <p>Replace: <code>var</code></p>
+  </li>
+
+  <li><p><code>elseif</code> becomes <code>else if</code></p>
+    <p>Find: <code>elseif</code></p>
+    <p>Replace: <code>else if</code></p>
+  </li>
+
+  <li><p>Indent blocks using Select, Shft-Tab then Tab</p></li>
+
+  <li><p>Remove all <code>then</code> and <code>end</code></p>
+    <p>Find:<code>then</code></p>
+    <p>Replace: <code></code></p>
+   
+    <p>Find: <code>end</code></p>
+    <p>Replace: <code></code></p>
+  </li>
+
+  <li><p>Leave <code>do</code> statements intact, but remove <code>do</code> after while and for</p>
+    <p>Find: <code>do</code></p>
+    <p>Replace: <code></code></p>
+  </li>
+  
+  <li><p><code>repeat</code> becomes <code>do</code></p>
+    <p>Find: <code>repeat</code></p>
+    <p>Replace: <code>do</code></p>
+  </li>
+
+  <strong>Turn on regular expression in find dialog:</strong>
+
+  <li><p>Convert normal functions</p>
+    <p>Find: <code>function (\w+)\((.*)\)</code></p>
+    <p>Replace: <code>var \1 = \\\2 -></code></p>
+  </li>
+
+  <li><p>Convert member functions</p>
+    <p>Find: <code>function (\w+)\.(\w+)\((.*)\)</code></p>
+    <p>Replace: <code>\1.\2 = \\\3 -></code></p>
+  </li>
+
+  <li><p>Convert member functions that take <code>self</code> parameter</p>
+    <p>Find: <code>function (\w+)\:(\w+)\((.*)\)</code></p>
+    <p>Replace: <code>\1.\2 = \\@, \3 -></code></p>
+  
+    <p>Find: <code>self</code></p>
+    <p>Replace: <code>@</code></p>
+  </li>
+
+  <li><p>Cleanup functions taking no argument</p>
+    <p>Find: <code>, -></code></p>
+    <p>Replace: <code>-></code></p>
+  </li>
+
+  <li><p>Convert calls that take self and other parameters</p>
+    <p>Find: <code>(\w+)\:(\w+)\((\w+)</code></p>
+    <p>Replace: <code>\1.\2(@, \3</code></p>
+  </li>
+
+  <li><p>Convert calls that take only self parameters</p>
+    <p>Find: <code>(\w+)\:(\w+)\(\)</code></p>
+    <p>Replace: <code>\1.\2(@)</code></p>
+  </li>
+  
+</ol>
+
+<p>Finally, try to compile and fix compilation errors</p>
+
+
 </section>
+
+
+
+
