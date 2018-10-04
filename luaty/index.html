@@ -19,19 +19,18 @@ title: Luaty programming language
 
 <a name="overview" class="anchor"></a>
 <h3>Overview</h3>
-<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. 'Typing' has two meanings here, both are the features of Luaty:</p>
+<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. <em>Typing</em> has two meanings here, both are the features of Luaty:</p>
 
 <h4>Type inference</h4>
-<p>Luaty type checker statically infers variable types in the code and warns about their inconsistent usage. Although it is not possible to correctly and fully infer all variable types, some warnings are quite helpful in discovering issues in the code.</p>
+<p>Luaty type checker statically infers variable types and warns when they are used inconsistently in the code. Although it is impossible to correctly and fully infer all variable types, some warnings are quite helpful in uncovering common coding mistakes or typos.</p>
 
 <h4>Type less</h4>
 <p>Due to offside syntax, Luaty could use less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
 
+That said, Luaty strives to limit its syntactic changes. Lua language is already very well designed, so the rule of thumb is that, if something can be achieved by introducing a function, it should not be a syntactic feature of Luaty.
+That means Lua users can be productive with Luaty in an afternoon, and Lua code can be hand converted into Luaty easily using a Find/Replace editor.
 
-That said, Luaty strives to limit its features. Lua language is very well designed, so Luaty's rule of thumb is that, if something can be abstracted into a function, we will not introduce syntactic change.
-That means Lua users can be productive with Luaty in an afternoon, and Lua code can be hand converted into Luaty code in easily using Find/Replace editor.
-
-<p>To sum it up: we type check, you type less</p>
+<p>In short, it boils down to: we type check, you type less</p>
 <!--
 <ul>
   <li>no more end</li>
