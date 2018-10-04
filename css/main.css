@@ -4,7 +4,8 @@ html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 h2 {
-  margin: 0.5em
+  margin: 0.5em;
+  font-family: Bookman, Garamond;
 }
 ul {
   margin: 0;
@@ -53,4 +54,7 @@ a.anchor {
   position: relative;
   top: -60px;
   visibility: hidden;
+}
+a {
+  text-decoration: none;
 }
