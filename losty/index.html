@@ -52,9 +52,6 @@ title: Losty web framework
 var web = require('web.web')
 var view = require('web.view')
 
-var server = web()
-var w = server.route()
-
 var template = ->
   return html({
     head({
@@ -83,11 +80,12 @@ var not_found = page({
   , message = 'Nothing here'
 })
 
+
+var server = web()
+var w = server.route()
+
 w.get('/', \req, res->
-  res.ok(page({
-    title = 'Hi'
-    , message = 'Losty is live!'
-  }))
+  res.ok(page({ title = 'Hi', message = 'Losty is live!' }))
 )
 
 -- custom error pages

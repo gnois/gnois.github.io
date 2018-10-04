@@ -61,7 +61,14 @@ a.anchor {
 a {
   text-decoration: none;
 }
+code {
+  background-color: #eee;
+}
 .code {
   display: block;
   white-space: pre-wrap;
+}
+.thead {
+  background-color: #bbb;
+  font-weight: bold;
 }

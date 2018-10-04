@@ -7,56 +7,164 @@ title: Luaty programming language
 <nav class="leftnav">
   <ul class="menu">
     <li><a href="#overview">Overview</a></li>
+    <li><a href="#analyzer">Analyzer</a></li>
+    <li><a href="#difference">Differences</a></li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#indentation">Indent rules</a></li>
+    <li><a href="#indent">Indent rules</a></li>
   </ul>
 </nav>
 
 <section>
 <h3><a href="https://github.com/gnois/luaty">Luaty</a></h3>
-<p>Luaty is an indent sensitive language with partial type inference that compiles to Lua.</p>
+<p>Luaty is an indent sensitive language with partial type inference that compiles to <a href="http://www.lua.org">Lua</a>.</p>
+
+<table>
+<thead><tr>
+<td>Luaty</td><td>Lua</td>
+</tr></thead>
+<tr><td>
+<code class="code">
+var map = \f, list ->
+  if f
+    var acc = {}
+    var l = 0
+    while l < #list
+      l = l + 1
+      acc[l] = f(list[l])
+    return acc
+  return list
+assert(map(\x->return x*x;, {1,2})[2] == 4)
+</code>
+</td><td>
+<code class="code">
+local map = function(f, list)
+    if f then
+        local acc = {}
+        local l = 0
+        while l < #list do
+            l = l + 1
+            acc[l] = f(list[l])
+        end
+        return acc
+    end
+    return list
+end
+assert(map(function(x)
+    return x * x
+end, {1, 2})[2] == 4)
+</code>
+</td></tr>
 
 
 <a name="overview" class="anchor"></a>
 <h3>Overview</h3>
-<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. <em>Typing</em> has two meanings here, both are the features of Luaty:</p>
+<p>Luaty stands for <strong><em>Lua</em></strong> with more or less <strong><em>ty</em></strong>ping. <em>Typing</em> carries two meanings here, which boils down to: we type check, you type less.</p>
 
 <h4>Type inference</h4>
-<p>Luaty type checker statically infers variable types and warns when they are used inconsistently in the code. Although it is impossible to correctly and fully infer all variable types, some warnings are quite helpful in uncovering common coding mistakes or typos.</p>
+<p>Luaty type checker statically infers variable types and warns when they are used inconsistently in code. Although it is impossible to correctly infer all variable types, some warnings are quite helpful in uncovering common coding mistakes or typos.</p>
 
 <h4>Type less</h4>
-<p>Due to offside syntax, Luaty could use less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
+<p>Due to offside syntax, Luaty uses less syntax boilerplate than Lua. <code>end, do, then</code> are removed without causing ambiguity. Luaty codes appear shorter and cleaner, yet maintains straightforward mapping to its Lua counterpart.</p>
 
-That said, Luaty strives to limit its syntactic changes. Lua language is already very well designed, so the rule of thumb is that, if something can be achieved by introducing a function, it should not be a syntactic feature of Luaty.
-That means Lua users can be productive with Luaty in an afternoon, and Lua code can be hand converted into Luaty easily using a Find/Replace editor.
 
-<p>In short, it boils down to: we type check, you type less</p>
-<!--
+
+<a name="analyzer" class="anchor"></a>
+<h3>Static analyzer</h3>
+
+<p>During transpiling, Luaty always warn about:</p>
 <ul>
-  <li>no more end</li>
-  <li>no more do after for and while</li>
-  <li>no more then after if</li>
+  <li>unused variables</li>
+  <li>shadowed variables in the parent or the same scope</li>
+  <li>unused labels and illegal gotos</li>
+  <li>assignment to undeclared (global) variables</li>
+  <li>assignment having more expressions on the right side than the left</li>
+  <li>duplicate keys in table constructor</li>
 </ul>
-<p>There are also some syntax changes:</p>
+
+<p>Optionally, a type inferencer can be enabled to check consistent usage of variables. It will try to infer the type of all variables by their usage.</p>
+<p>Since Lua is a dynamic language, the inferencer can be wrong in non trivial cases. Therefore, it is advisable to enable type checking during initial development, and if it causes too many warnings, to turn it off subsequently.</p>
+
+<p>Note that Lua code will be generated regardless of warning(s) by the static analyzer.</p>
+
+
+<a name="difference" class="anchor"></a>
+<h3>Differences from Lua</h3>
+
+<p>Luaty strives to limit syntactical changes from Lua, which is already very well designed.</p>
+
+<p>The rule of thumb is that, if something can be achieved by introducing a function, it should not become a feature of Luaty. For example, generating enums or classes.</p>
+<p>This means Luaty has very few syntactical features, and Lua users can be productive with Luaty in a short time.</p>
+
+<p>Instead of introducing Luaty from Variables to Expressions, we would only point out the syntactical differences from Lua.</p>
+
+<h4>Removed keywords:</h4>
 <ul>
-<li>repeat becomes do</li>
-<li>elseif becomes else if</li>
-<li>local becomes var</li>
-<li>[[ and ]] become backquote(s) ` that can be repeated multiple times</li>
-<li>table keys can be string or keyword</li>
--->
+  <li><code>end</code></li>
+  <li><code>do</code> after for and while</li>
+  <li><code>then</code> after if</li>
+</ul>
+<h4>Changed keywords and symbols:</h4>
+<ul>
+  <li><code>repeat</code> becomes <code>do</code></li>
+  <li><code>elseif</code> becomes <code>else if</code></li>
+  <li><code>local</code> becomes <code>var</code></li>
+  <li>double square brackets <code>[[</code> and <code>]]</code> become backquote <code>`</code> that can be repeated multiple times</li>
+</ul>
+<h4>Convenience:</h4>
+<ul>
+  <li>table keys can be string or keyword</li>
+</ul>
+
+<h4>Function syntax:</h4>
+<p>Functions in Luaty are mostly desugared:</p>
+<ul>
+  <li>function is defined using <a href="https://www.lua.org/manual/5.1/manual.html#2.5.9">lambda expression</a> with <code>-></code> or <code>\param1, param2, ... -></code></li>
+  <li>function call always require parenthesis</li>
+  <li>colon <code>:</code> is never used. <code>self</code> or </code>@</code> is specified as the first paramenter or call argument instead</li>
+  <li>specifying <code>@</code> as the first call argument compiles to colon call syntax <code>:</code> in Lua, if possible</li>
+</ul>
 
 
 
 <a name="usage" class="anchor"></a>
 <h3>Usage</h3>
-<p>Luaty only requires LuaJIT to run.</p>
+<p>Luaty only requires <a href="luajit.org">LuaJIT</a> to run.</p>
 
-<p>With LuaJIT in your path, clone the Luaty repo, and cd into it.</p>
+<p>With LuaJIT in your path, <a href="https://github.com/gnois/luaty/releases">download the Luaty release</a>, extract into a folder and cd into it.</p>
+
+
+<p>To transpile a Luaty main.lt file together with its dependencies to main.lua and dep1.lua, dep2.lua, ... , use</p>
+
+<code>luajit lt.lua -f [-t] /path/to/main.lt</code>
+
+<p>The type inferencer can be optionally enabled by using <code>-t</code>.</p>
+
+The Lua output files will be <em>overwritten</em> if they exist. To prevent overwriting, use <code>-c</code> instead of <code>-f</code>.</p>
+
+<code>luajit lt.lua -c [-t] /path/to/main.lt</code>
+
+<p>Alternatively, specify a new output directory</p>
+
+<code>luajit lt.lua -c [-t] /path/to/main.lt outdir</code>
+
+
+<p>To execute a Luaty source file, use</p>
+
+<code>luajit lt.lua /path/to/source.lt</code>
+
+
+<p>To run tests in the tests folder, use</p>
+
+<code>luajit run-test.lua</code>
+
+<p>To make Luaty itself, use</p>
+
+<code>luajit lt.lua -f lt.lt</code>
+
 <p></p>
 
 
-<a name="indentation" class="anchor"></a>
+<a name="indent" class="anchor"></a>
 <h3>Indent rules</h3>
 
 <ol>
