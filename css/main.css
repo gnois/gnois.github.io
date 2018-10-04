@@ -39,6 +39,10 @@ main {
   height: 100%;
   min-height: 100%;
 }
+/* blog has no leftnav */
+.blog {
+  margin-left: -100px;
+}
 .leftnav {
   position: fixed;
   left: 0;
