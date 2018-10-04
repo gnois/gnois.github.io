@@ -58,3 +58,7 @@ a.anchor {
 a {
   text-decoration: none;
 }
+code {
+  display: block;
+  white-space: pre-wrap;
+}

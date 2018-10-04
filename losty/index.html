@@ -1,0 +1,100 @@
+---
+layout: default
+title: Losty web framework
+---
+
+
+<nav class="leftnav">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#usage">Usage</a></li>
+  </ul>
+</nav>
+
+<section>
+<h3><a href="https://github.com/gnois/losty">Losty</a></h3>
+<p>Losty is a modern and practical web framework running atop <a href="https://openresty.org">OpenResty</a> with minimal dependencies.</p>
+
+
+<a name="overview" class="anchor"></a>
+<h3>Overview</h3>
+<p>Losty stands for <strong><em>L</em></strong>uaty on <strong><em>O</em></strong>penRe<strong><em>sty</em></strong></p>.
+
+<p>Putting functions first and foremost, Losty is similar to middleware based frameworks like Koa.js, but comes included with opinionated batteries, such as:</p>
+
+<ul>
+  <li>DSL for HTML generation</li>
+  <li>request router</li>
+  <li>request body parsers</li>
+  <li>content-negotiation</li>
+  <li>cookie and session handlers</li>
+  <li>slug generation for url</li>
+  <li>Server side event (SSE) support</li>
+  <li>SQL query and migration helpers</li>
+  <li>input validation helpers</li>
+  <li>table, string and functional helpers</li>
+</ul>
+
+
+<a name="usage" class="anchor"></a>
+<h3>Usage</h3>
+<p> Dependency: <a href="https://openresty.org">OpenResty</a> </p>
+
+<p>Optional:</p>
+<ul>
+  <li><a href="https://github.com/gnois/luaty">Luaty</a> to compile to Lua</li>
+  <li><a href="https://github.com/leafo/pgmoon">pgmoon</a> if using PostgreSQL (for MySQL, OpenResty comes prebuilt with lua-resty-mysql)</li>
+</ul>
+
+<p>A Losty web application looks like:</p>
+<code>
+var web = require('web.web')
+var view = require('web.view')
+
+var server = web()
+var w = server.route()
+
+var template = ->
+	return html({
+		head({
+			meta('[charset=UTF-8]')
+			, title(args.title)
+			, style({'.center { text-align: center; }'})
+		})
+		, body({
+			div('.center', {
+				h1(args.title)
+				, div(args.message)
+			})
+			, footer({
+				hr()
+				, div('.center', '&copy' .. args.copyright)
+			})
+		})
+	})
+
+var page = \args ->
+	args.copyright = 'My website'
+	return view(template, args)
+
+var not_found = page({
+	title = '404 Not Found'
+	, message = 'Nothing here'
+})
+
+w.get('/', \req, res->
+	res.ok(page({
+		title = 'Hi'
+		, message = 'Losty is live!'
+	}))
+)
+
+-- custom error pages
+var replies = {
+	[404] = not_found()
+}
+server.run(replies)
+
+</code>
+
+</section>
