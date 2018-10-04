@@ -33,7 +33,9 @@ var map = \f, list ->
       acc[l] = f(list[l])
     return acc
   return list
-assert(map(\x->return x*x;, {1,2})[2] == 4)
+assert(map(\x ->
+  return x*x
+, {1, 2})[2] == 4)
 </code>
 </td><td>
 <code class="code">
@@ -54,7 +56,7 @@ assert(map(function(x)
 end, {1, 2})[2] == 4)
 </code>
 </td></tr>
-
+</table>
 
 <a name="overview" class="anchor"></a>
 <h3>Overview</h3>

@@ -20,6 +20,15 @@ header {
   padding: 1em;
   list-style: none;
 }
+.menu a {
+  text-decoration: none;
+}
+a.anchor {
+  display: block;
+  position: relative;
+  top: -60px;
+  visibility: hidden;
+}
 .topnav {
   position: fixed;
   top: 5px;
@@ -51,15 +60,6 @@ main {
 }
 section {
   padding: 1em;
-}
-a.anchor {
-  display: block;
-  position: relative;
-  top: -60px;
-  visibility: hidden;
-}
-a {
-  text-decoration: none;
 }
 code {
   background-color: #eee;
